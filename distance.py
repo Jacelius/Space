@@ -9,14 +9,26 @@ print("Celestial Object:", celestial_object)
 observer_location = curses.wrapper(completer.observer_selection)
 print("Observer Location:", observer_location)
 
-# Get the current location using IP address
-g = geocoder.ip('me')
-
-# Extract the latitude and longitude
-latitude = g.lat
-longitude = g.lng
-
-print(f"Your current location is: (\u03BB{latitude:.2f}, \u03A6{longitude:.2f})")
+match observer_location:
+    case "My Coordinates":
+        g = geocoder.ip('me') # Get the current location using IP address
+        latitude = g.lat
+        longitude = g.lng
+        print(f"Your current location is: (\u03BB{latitude:.2f}, \u03A6{longitude:.2f})")
+    case "Paris":
+        latitude = 48.8534
+        longitude = 2.3488
+    case "London":
+        latitude = 51.5074
+        longitude = 0.1278
+    case "New York":
+        latitude = 40.7128
+        longitude = -74.0060
+    case "Tokyo":
+        latitude = 35.6762
+        longitude = 139.6503
+    case _:
+        raise ValueError("Invalid observer location")
 
 # Set up the observer (in this case, Earth)
 observer = ephem.Observer()
@@ -47,4 +59,4 @@ distance_km = distance_au * km_per_au
 # Format the kilometer value with underscores
 formatted_km = "{:,.3f}".format(distance_km)
 
-print(f"The current distance from Earth to Mars is {distance_au:.2f} AU, or {formatted_km} kilometers.")
+print(f"The current distance from {observer_location} to {celestial_object} is {distance_au:.2f} AU, or {formatted_km} kilometers.")

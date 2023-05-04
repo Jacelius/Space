@@ -58,8 +58,3 @@ def observer_selection(stdscr):
         elif key == curses.KEY_ENTER or key == 10:
             break
     return options[current_option]
-
-# Run the main function
-result = curses.wrapper(celestial_object_selection)
-# Print the result
-print("You selected:", result)
