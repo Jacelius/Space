@@ -1,5 +1,13 @@
 import ephem
 import geocoder
+import completer
+import curses 
+
+celestial_object = curses.wrapper(completer.celestial_object_selection)
+print("Celestial Object:", celestial_object)
+
+observer_location = curses.wrapper(completer.observer_selection)
+print("Observer Location:", observer_location)
 
 # Get the current location using IP address
 g = geocoder.ip('me')
@@ -8,7 +16,7 @@ g = geocoder.ip('me')
 latitude = g.lat
 longitude = g.lng
 
-print(f"Your current location is: ({latitude:.2f}, {longitude:.2f})")
+print(f"Your current location is: (\u03BB{latitude:.2f}, \u03A6{longitude:.2f})")
 
 # Set up the observer (in this case, Earth)
 observer = ephem.Observer()
@@ -19,12 +27,18 @@ observer.name = 'Earth'
 # Set the date to now
 observer.date = ephem.now()
 
-# Set up the target (in this case, Mars)
-mars = ephem.Mars()
+match celestial_object:
+    case "Moon":
+        target = ephem.Moon()
+    case "Mars":
+        target = ephem.Mars()
+    case _:
+        raise ValueError("Invalid celestial object")
 
-# Compute the distance between Earth and Mars
-mars.compute(observer)
-distance_au = mars.earth_distance
+# Compute the distance between Earth and the target
+target.compute(observer)
+
+distance_au = target.earth_distance
 
 # Convert the distance to kilometers
 km_per_au = 149597870.7
