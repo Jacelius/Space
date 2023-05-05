@@ -4,7 +4,7 @@ import curses
 
 def celestial_object_selection(stdscr):
     # Define a list of options
-    options = ["Moon", "Mars"]
+    options = ["The Sun", "Mercury", "Venus", "The Moon", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
     # Set up the screen
     curses.curs_set(0)
     stdscr.clear()

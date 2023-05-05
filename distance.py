@@ -14,7 +14,7 @@ match observer_location:
         g = geocoder.ip('me') # Get the current location using IP address
         latitude = g.lat
         longitude = g.lng
-        print(f"Your current location is: (\u03BB{latitude:.2f}, \u03A6{longitude:.2f})")
+        print(f"(latitude, longitude) : (\u03BB{latitude:.2f}, \u03A6{longitude:.2f})")
     case "Paris":
         latitude = 48.8534
         longitude = 2.3488
@@ -40,10 +40,26 @@ observer.name = 'Earth'
 observer.date = ephem.now()
 
 match celestial_object:
+    case "The Sun":
+        target = ephem.Sun()
+    case "Mercury":
+        target = ephem.Mercury()
+    case "Venus":
+        target = ephem.Venus()
     case "Moon":
         target = ephem.Moon()
     case "Mars":
         target = ephem.Mars()
+    case "Jupiter":
+        target = ephem.Jupiter()
+    case "Saturn":
+        target = ephem.Saturn()
+    case "Uranus":
+        target = ephem.Uranus()
+    case "Neptune":
+        target = ephem.Neptune()
+    case "Pluto":
+        target = ephem.Pluto()
     case _:
         raise ValueError("Invalid celestial object")
 
